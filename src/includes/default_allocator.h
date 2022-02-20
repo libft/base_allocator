@@ -10,14 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft/base_allocator.h>
+#ifndef DEFAULT_ALLOCATOR_H
+# define DEFAULT_ALLOCATOR_H
 
-#include "default_allocator.h"
+# include <stddef.h>
 
-static const t_base_allocator	g_default = {
-	&ft_base_allocator_default_malloc,
-	&ft_base_allocator_default_realloc,
-	&ft_base_allocator_default_free,
-};
+typedef struct s_memory_block {
+	size_t	capacity;
+	size_t	size;
+	char	actual[];
+}	t_memory_block;
 
-const t_base_allocator			*g_base_default_allocator = &g_default;
+void	*ft_base_allocator_default_malloc(size_t size);
+void	*ft_base_allocator_default_realloc(void *ptr, size_t size);
+void	ft_base_allocator_default_free(void *ptr);
+
+#endif

@@ -10,14 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft/base_allocator.h>
+#ifndef BASE_ALLOCATOR_H
+# define BASE_ALLOCATOR_H
 
-#include "default_allocator.h"
+# include <stddef.h>
 
-static const t_base_allocator	g_default = {
-	&ft_base_allocator_default_malloc,
-	&ft_base_allocator_default_realloc,
-	&ft_base_allocator_default_free,
-};
+# include "base_allocator_types.h"
 
-const t_base_allocator			*g_base_default_allocator = &g_default;
+extern const t_base_allocator	*g_base_default_allocator;
+
+void							*ft_malloc(
+									t_base_allocator *allocator,
+									size_t size);
+
+void							*ft_calloc(
+									t_base_allocator *allocator,
+									size_t item_count,
+									size_t item_size);
+
+void							*ft_realloc(
+									t_base_allocator *allocator,
+									void *ptr,
+									size_t new_size);
+
+void							*ft_free(
+									t_base_allocator *allocator,
+									void *ptr);
+
+#endif

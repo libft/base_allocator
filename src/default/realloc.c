@@ -10,14 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft/base_allocator.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <stdint.h>
+
+#include <ft/memory.h>
 
 #include "default_allocator.h"
 
-static const t_base_allocator	g_default = {
-	&ft_base_allocator_default_malloc,
-	&ft_base_allocator_default_realloc,
-	&ft_base_allocator_default_free,
-};
+void	*ft_base_allocator_default_realloc(void *ptr, size_t size)
+{
+	t_memory_block	*old;
+	void			*result;
 
-const t_base_allocator			*g_base_default_allocator = &g_default;
+	old = (t_memory_block *)((intptr_t)(ptr)
+			- (intptr_t)(&((t_memory_block *) 0)->actual));
+	if (old->capacity < size)
+	{
+		result = ft_base_allocator_default_malloc(size);
+		if (result)
+			ft_memcpy(result, ptr, size);
+		ft_base_allocator_default_free(old);
+		return (result);
+	}
+	else
+	{
+		old->size = size;
+		return (ptr);
+	}
+}
