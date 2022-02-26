@@ -20,4 +20,4 @@ static const t_base_allocator	g_default = {
 	&ft_base_allocator_default_free,
 };
 
-const t_base_allocator			*g_base_default_allocator = &g_default;
+const t_base_allocator			*g_default_base_allocator = &g_default;

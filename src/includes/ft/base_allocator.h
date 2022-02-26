@@ -17,7 +17,7 @@
 
 # include "base_allocator_types.h"
 
-extern const t_base_allocator	*g_base_default_allocator;
+extern const t_base_allocator	*g_default_base_allocator;
 
 void							*ft_malloc(
 									t_base_allocator *allocator,
